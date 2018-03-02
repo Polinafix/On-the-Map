@@ -51,7 +51,7 @@ class UdacityClient: CommonClient {
         }
     }
     
-    //MARK: Method for getting user's data
+    //MARK: Method for getting current user's data
     func getUserData(_ completionHandlerForUserData: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         
@@ -61,6 +61,7 @@ class UdacityClient: CommonClient {
         
         /* Make the request */
         let _ = taskForGETMethod(method, parameters: methodParameters, headers: headers, API: "Udacity") { (results, error) in
+            
             if error != nil {
                 completionHandlerForUserData(false, "There was an error getting user data.")
             } else {

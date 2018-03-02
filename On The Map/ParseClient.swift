@@ -47,7 +47,7 @@ class ParseClient: CommonClient {
         /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
         let url = "https://parse.udacity.com/parse/classes/StudentLocation"
        
-        let jsonBody = "{\"uniqueKey\": \"\(Student.sharedUser().accountKey)\", \"firstName\": \"\(Student.sharedUser().firstName)\", \"lastName\": \"\(Student.sharedUser().lastName)\",\"mapString\": \"\(Student.sharedUser().mapString)\", \"mediaURL\": \"\(Student.sharedUser().mediaURL)\",\"latitude\":\(Student.sharedUser().latitude), \"longitude\": \(Student.sharedUser().longitude)}"
+        let jsonBody = "{\"uniqueKey\": \"\(Student.sharedUser().accountKey)\", \"firstName\": \"\(String(describing: Student.sharedUser().firstName))\", \"lastName\": \"\(String(describing: Student.sharedUser().lastName))\",\"mapString\": \"\(String(describing: Student.sharedUser().mapString))\", \"mediaURL\": \"\(String(describing: Student.sharedUser().mediaURL))\",\"latitude\":\(String(describing: Student.sharedUser().latitude)), \"longitude\": \(String(describing: Student.sharedUser().longitude))}"
         let headers = ["X-Parse-Application-Id": "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr",
                        "X-Parse-REST-API-Key": "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY",
                        "Content-Type": "application/json"]

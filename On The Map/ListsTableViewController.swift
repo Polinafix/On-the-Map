@@ -14,19 +14,14 @@ class ListsTableViewController: UITableViewController {
         super.viewDidLoad()
 
     }
-
-}
-
-extension ListsTableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // get cell type
         let cellReuseIdentifier = "ListTableViewCell"
-        let student = Student.sharedUser().studentLocations[(indexPath as NSIndexPath).row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
         
-        
+        let student = Student.sharedUser().studentLocations[indexPath.row]
         if let firstName = student.firstName, let lastName = student.lastName{
            cell?.textLabel!.text = firstName + " " + lastName
         }

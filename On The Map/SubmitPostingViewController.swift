@@ -28,7 +28,7 @@ class SubmitPostingViewController: UIViewController {
         let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        annotation.title = "\(Student.sharedUser().firstName) \(Student.sharedUser().lastName)"
+        annotation.title = "\(String(describing: Student.sharedUser().firstName)) \(String(describing: Student.sharedUser().lastName))"
         annotation.subtitle = Student.sharedUser().mediaURL
         annotations.append(annotation)
         
