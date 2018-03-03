@@ -23,9 +23,11 @@ class SubmitPostingViewController: UIViewController {
     private func populateMapView(){
         
         var annotations = [MKPointAnnotation]()
+        //create a coordinate for the current student's location
         let lat = CLLocationDegrees(Student.sharedUser().latitude!)
         let lon = CLLocationDegrees(Student.sharedUser().longitude!)
         let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        //create a new annotation
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
         annotation.title = "\(String(describing: Student.sharedUser().firstName)) \(String(describing: Student.sharedUser().lastName))"
@@ -38,10 +40,9 @@ class SubmitPostingViewController: UIViewController {
         performUIUpdatesOnMain {
             self.bigMap.addAnnotations(annotations)
             self.bigMap.setRegion(region, animated: true)
-            print("new location added to the map view.")
+            //print("new location added to the map view.")
         }
-           
-        
+      
     }
     
     @IBAction func confirmSubmit(_ sender: UIButton) {

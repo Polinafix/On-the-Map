@@ -39,6 +39,7 @@ class MapViewController: UIViewController {
     }
     
     func addAnnotations(){
+        
         var annotations = [MKPointAnnotation]()
         
         for student in Student.sharedUser().studentLocations{
@@ -62,7 +63,9 @@ class MapViewController: UIViewController {
     }
     
    
-    @IBAction func unwindToMap(segue:UIStoryboardSegue) { }
+    @IBAction func unwindToMap(segue:UIStoryboardSegue) {
+        
+    }
     
     func showAlert(title:String, message:String?) {
         
