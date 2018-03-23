@@ -5,6 +5,7 @@ The On The Map app allows users to share their location and a URL with their fel
 Objectives learned:
 - Accessing networked data using Apple’s URL loading framework
 - Authenticating a user using over a network connection
+- Using Facebook SDK to implement Facebook Login
 - Creating user interfaces that are responsive, and communicate network activity
 - Using Core Location and the MapKit framework for to display annotated pins on a map
 
@@ -20,6 +21,7 @@ The app has three pages of content:
 The login view accepts the email address and password that students use to login to the Udacity site.
 When the user taps the Login button, the app will attempt to authenticate with Udacity’s servers. Clicking on the Sign Up link will open Safari to the Udacity sign-up page.
 If the login does not succeed, the user will be presented with an alert view specifying whether it was a failed network connection, or an incorrect email and password.
+Users can also login with their Facebook account.
 
 &nbsp;![img1](https://i.imgur.com/1ur8mNE.gif)
 

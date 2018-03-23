@@ -255,7 +255,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Bkp-dm-hoW"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="U7x-17-kIn"/>
-                                    <constraint firstAttribute="width" constant="299" id="Z4h-hE-m7b"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="299" id="Z4h-hE-m7b"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <state key="normal" title="SUBMIT">
