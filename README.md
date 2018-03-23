@@ -19,9 +19,11 @@ The app has three pages of content:
 ##### Login View
 
 The login view accepts the email address and password that students use to login to the Udacity site.
-When the user taps the Login button, the app will attempt to authenticate with Udacity’s servers. Clicking on the Sign Up link will open Safari to the Udacity sign-up page.
+When the user taps the Login button, the app will attempt to authenticate with Udacity’s servers. Clicking on the Sign Up link will open Safari to the Udacity sign-up page. Users can also login with their Facebook account.
+
+&nbsp;![img0](https://i.imgur.com/NhmR6fE.png)
+
 If the login does not succeed, the user will be presented with an alert view specifying whether it was a failed network connection, or an incorrect email and password.
-Users can also login with their Facebook account.
 
 &nbsp;![img1](https://i.imgur.com/1ur8mNE.gif)
 
