@@ -12,6 +12,7 @@ class Student{
     
     var objectId: String = ""
     var accountKey: String = ""//retrieved during login
+    var fbToken:String = ""
     
     var firstName: String?
     var lastName: String?

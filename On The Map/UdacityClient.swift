@@ -20,6 +20,39 @@ class UdacityClient: CommonClient {
         return Singleton.sharedInstance
     }
     
+    func loginWithFacebook(fbToken:String, completionHandlerForLoginWithFb: @escaping (_ success: Bool, _ error: String?) -> Void) {
+        
+        let url = "https://www.udacity.com/api/session"
+        let jsonBody = "{\"facebook_mobile\": {\"access_token\": \"" + fbToken + ";\"}}"
+        print(jsonBody)
+        let headers = [
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        ]
+        
+        let _ = taskForPOSTMethod(url, API: "Udacity", jsonBody: jsonBody, headers: headers) { (results, error) in
+            
+            /*Send the desired value(s) to completion handler */
+            if let error = error {
+                completionHandlerForLoginWithFb(false, error.localizedDescription)
+            }else{
+                if let account = results?["account"] as? [String:AnyObject]{
+                    if let accountKey = account["key"] as? String {
+                        
+                         print(accountKey)
+                        
+                        Student.sharedUser().accountKey = accountKey
+                        completionHandlerForLoginWithFb(true, nil)
+                        
+                    }
+                }else{
+                    completionHandlerForLoginWithFb(false, "Invalid Credentials")
+                }
+            }
+        }
+        
+    }
+    
     //MARK: Method for login
     func login(username: String, password: String, completionHandlerForLogin: @escaping (_ success: Bool, _ error: String?) -> Void){
         
@@ -39,6 +72,8 @@ class UdacityClient: CommonClient {
             }else{
                 if let account = results?["account"] as? [String:AnyObject]{
                     if let accountKey = account["key"] as? String {
+                        
+                       
                         
                         Student.sharedUser().accountKey = accountKey
                         completionHandlerForLogin(true, nil)
