@@ -12,29 +12,21 @@ class ListsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        // get cell type
         let cellReuseIdentifier = "ListTableViewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
-        
         let student = Student.sharedUser().studentLocations[indexPath.row]
         if let firstName = student.firstName, let lastName = student.lastName{
            cell?.textLabel!.text = firstName + " " + lastName
         }
-        
         cell?.imageView!.image = UIImage(named: "icon_pin")
         cell?.imageView!.contentMode = UIViewContentMode.scaleAspectFit
-        
-        
         return cell!
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return Student.sharedUser().studentLocations.count
     }
     
@@ -44,7 +36,5 @@ class ListsTableViewController: UITableViewController {
         if let toOpen = student.mediaURL {
             app.open(URL(string: toOpen)!, options: [:], completionHandler: nil)
         }
-
-}
-
+    }
 }

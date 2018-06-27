@@ -21,7 +21,6 @@ class UdacityClient: CommonClient {
     }
     
     func loginWithFacebook(fbToken:String, completionHandlerForLoginWithFb: @escaping (_ success: Bool, _ error: String?) -> Void) {
-        
         let url = "https://www.udacity.com/api/session"
         let jsonBody = "{\"facebook_mobile\": {\"access_token\": \"" + fbToken + ";\"}}"
         print(jsonBody)
@@ -31,26 +30,21 @@ class UdacityClient: CommonClient {
         ]
         
         let _ = taskForPOSTMethod(url, API: "Udacity", jsonBody: jsonBody, headers: headers) { (results, error) in
-            
             /*Send the desired value(s) to completion handler */
             if let error = error {
                 completionHandlerForLoginWithFb(false, error.localizedDescription)
             }else{
                 if let account = results?["account"] as? [String:AnyObject]{
                     if let accountKey = account["key"] as? String {
-                        
                          print(accountKey)
-                        
                         Student.sharedUser().accountKey = accountKey
                         completionHandlerForLoginWithFb(true, nil)
-                        
                     }
-                }else{
+                } else {
                     completionHandlerForLoginWithFb(false, "Invalid Credentials")
                 }
             }
         }
-        
     }
     
     //MARK: Method for login
@@ -63,21 +57,16 @@ class UdacityClient: CommonClient {
             "Accept": "application/json",
             "Content-Type": "application/json"
         ]
-        
+
         let _ = taskForPOSTMethod(url, API: "Udacity", jsonBody: jsonBody, headers:headers) { (results, error) in
-            
             /*Send the desired value(s) to completion handler */
             if let error = error {
                 completionHandlerForLogin(false, error.localizedDescription)
-            }else{
+            } else {
                 if let account = results?["account"] as? [String:AnyObject]{
                     if let accountKey = account["key"] as? String {
-                        
-                       
-                        
                         Student.sharedUser().accountKey = accountKey
                         completionHandlerForLogin(true, nil)
-                        
                     }
                 }else{
                     completionHandlerForLogin(false, "Invalid Credentials")
@@ -88,15 +77,12 @@ class UdacityClient: CommonClient {
     
     //MARK: Method for getting current user's data
     func getUserData(_ completionHandlerForUserData: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
-        
-        
         let headers = [String:String]()
         let method = "/users/\(Student.sharedUser().accountKey)"
         let methodParameters = [String:AnyObject]()
         
         /* Make the request */
         let _ = taskForGETMethod(method, parameters: methodParameters, headers: headers, API: "Udacity") { (results, error) in
-            
             if error != nil {
                 completionHandlerForUserData(false, "There was an error getting user data.")
             } else {
@@ -106,14 +92,12 @@ class UdacityClient: CommonClient {
                         Student.sharedUser().lastName = userLastName
                         completionHandlerForUserData(true, nil)
                     }
-                    
                 } else {
                     completionHandlerForUserData(false,"Could not get the user data.")
                 }
             }
         }
-            
-        }
+    }
     //MARK: Method for logging out
     func logout(_ completionHandlerForLogout: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
@@ -139,13 +123,12 @@ class UdacityClient: CommonClient {
                     if (session["expiration"] as? String) != nil{
                         completionHandlerForLogout(true, nil)
                     }
-                    
                 } else {
                     completionHandlerForLogout(false,"Unable to logout")
                 }
             }
         }
     }
-    }
+}
     
 

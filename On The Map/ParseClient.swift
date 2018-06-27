@@ -31,17 +31,15 @@ class ParseClient: CommonClient {
             if let error = error {
                 completionHandlerForStudentLocation(nil, error)
             } else {
-                
                 if let results = results?["results"] as? [[String:AnyObject]]{
                     let students = Student.studentsFromResults(results)
                     completionHandlerForStudentLocation(students, nil)
                 }else {
                     completionHandlerForStudentLocation(nil,NSError(domain: "getStudentLocation parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getStudentLocation"]))
                 }
-            
            }
         }
-}
+    }
     
     func postStudentLocation(_ completionHandlerForNewLocation: @escaping (_ result: String?, _ error: NSError?) -> Void) {
         /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */

@@ -23,9 +23,7 @@ struct Constants {
         
     }
     
-    // MARK: TMDB Parameter Keys
-
-    
+    // MARK: Parameter Keys
     struct UdacityParameterKeys {
         static let UdacityDictionary = "udacity"
         static let Username = "username"

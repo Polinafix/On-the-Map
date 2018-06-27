@@ -20,10 +20,8 @@ class Student{
     var latitude: Double?
     var longitude: Double?
     var mediaURL: String?
-    
     var studentLocations = [Student]()
-    
-    
+
     init(dictionary: [String:AnyObject]) {
         firstName = dictionary["firstName"] as? String
         lastName = dictionary["lastName"] as? String
@@ -32,31 +30,23 @@ class Student{
         mediaURL = dictionary["mediaURL"] as? String
     }
     
-    init(){
-        
-    }
+    init() {}
     
     static func studentsFromResults(_ results: [[String:AnyObject]]) -> [Student] {
-        
         var students = [Student]()
-        
         // iterate through array of dictionaries, each Student is a dictionary
         for result in results {
             students.append(Student(dictionary: result))
         }
-        
         return students
     }
     
     static func sharedUser() -> Student {
-        
         struct Singleton {
             static var sharedUser = Student()
         }
-        
         return Singleton.sharedUser
-    }
-    
+    }    
 }
 
 

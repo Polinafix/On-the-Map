@@ -12,13 +12,10 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     @IBAction func logout(_ sender: UIBarButtonItem) {
-        
         UdacityClient.sharedInstance().logout { (success, errorString) in
-        
             if success{
                 performUIUpdatesOnMain {
                     self.dismiss(animated: true, completion: nil)
@@ -28,13 +25,9 @@ class TabBarViewController: UITabBarController {
             }
         }
     }
-   
-    
+
     @IBAction func refresh(_ sender: UIBarButtonItem) {
         let controller = self.viewControllers![0] as! MapViewController
         controller.getStudentLocations()
     }
-
-    
-
 }

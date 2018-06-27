@@ -18,7 +18,6 @@ class CommonClient: NSObject{
     
     /* 1. Set the parameters */
     /* 2/3. Build the URL, Configure the request */
-        
         let request:NSMutableURLRequest!
         let url:URL!
         if API == "Udacity"{
@@ -26,10 +25,6 @@ class CommonClient: NSObject{
         }else{
             request = NSMutableURLRequest(url: createURLFromParameters(parameters, scheme: Constants.Parse.ApiScheme, host: Constants.Parse.ApiHost, path: Constants.Parse.ApiPath, withPathExtension: method))
         }
-       
-    
-        //request.httpMethod = "GET"
-        
         //get the headers
         for(key,value) in headers{
             request.addValue(value, forHTTPHeaderField: key)
@@ -37,7 +32,6 @@ class CommonClient: NSObject{
     
     /* 4. Make the request */
     let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
-        
         func sendError(_ error: String) {
             print(error)
             let userInfo = [NSLocalizedDescriptionKey : error]
@@ -63,7 +57,6 @@ class CommonClient: NSObject{
         }
         
         /* 5/6. Parse the data and use the data (happens in completion handler) */
-        
         if API == "Udacity"{
             let range = Range(uncheckedBounds: (5, data.count ))
             let newData = data.subdata(in: range)
@@ -71,18 +64,15 @@ class CommonClient: NSObject{
         }else if API == "Parse"{
             self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForGET)
         }
-        
     }
     
     /* 7. Start the request */
     task.resume()
-    
     return task
 }
     
     
     // MARK: POST
-    
     func taskForPOSTMethod(_ url: String,API:String,jsonBody: String,headers:[String:String], completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
@@ -93,18 +83,16 @@ class CommonClient: NSObject{
         for(key,value) in headers{
             request.addValue(value, forHTTPHeaderField: key)
         }
-        
         request.httpBody = jsonBody.data(using: String.Encoding.utf8)
         
         /* 4. Make the request */
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
-            
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
                 completionHandlerForPOST(nil, NSError(domain: "taskForPostMethod", code: 1, userInfo: userInfo))
             }
-            
+
             /* GUARD: Was there an error? */
             guard (error == nil) else {
                 sendError("There was an error with your request: \(String(describing: error?.localizedDescription))")
@@ -113,9 +101,7 @@ class CommonClient: NSObject{
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-    
                     sendError("Incorrect Credentials")
-     
                 return
             }
             
@@ -127,19 +113,16 @@ class CommonClient: NSObject{
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             
-            if API == "Udacity"{
+            if API == "Udacity" {
                 let range = Range(uncheckedBounds: (5, data.count ))
                 let newData = data.subdata(in: range)
                 self.convertDataWithCompletionHandler(newData, completionHandlerForConvertData: completionHandlerForPOST)
-            }else if API == "Parse"{
+            } else if API == "Parse"{
                 self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForPOST)
             }
-          
         }
-        
         /* 7. Start the request */
         task.resume()
-        
         return task
     }
     
@@ -171,23 +154,19 @@ class CommonClient: NSObject{
                 sendError("No data was returned by the request!")
                 return
             }
-            
             let range = Range(uncheckedBounds: (5, data.count))
             let newData = data.subdata(in: range) /* subset response data! */
             
             /* Parse the data and use the data (happens in completion handler) */
             self.convertDataWithCompletionHandler(newData, completionHandlerForConvertData: completionHandlerForDELETE)
         }
-        
         /* Start the request */
         task.resume()
-        
         return task
     }
     
     // create a URL from parameters
     func createURLFromParameters(_ parameters: [String:Any],scheme:String,host:String,path:String, withPathExtension: String? = nil) -> URL {
-        
         var components = URLComponents()
         components.scheme = scheme
         components.host = host
@@ -198,13 +177,11 @@ class CommonClient: NSObject{
             let queryItem = URLQueryItem(name: key, value: "\(value)")
             components.queryItems!.append(queryItem)
         }
-        
         return components.url!
     }
     
     // given raw JSON, return a usable Foundation object
     private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?) -> Void) {
-        
         var parsedResult: AnyObject! = nil
         do {
             parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
@@ -214,9 +191,6 @@ class CommonClient: NSObject{
         }
         completionHandlerForConvertData(parsedResult, nil)
     }
-    
-  
-
 }
 
 
